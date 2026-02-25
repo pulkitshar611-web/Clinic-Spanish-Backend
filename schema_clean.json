@@ -1,0 +1,27 @@
+{
+  "shareholders": [
+    "id",
+    "name",
+    "legal_id",
+    "email",
+    "phone",
+    "share_percentage",
+    "created_at",
+    "updated_at",
+    "is_deleted",
+    "role",
+    "status",
+    "join_date"
+  ],
+  "contributions": [
+    "id",
+    "shareholder_id",
+    "amount",
+    "contribution_date",
+    "notes",
+    "created_at",
+    "is_deleted",
+    "contribution_type",
+    "shares_count"
+  ]
+}

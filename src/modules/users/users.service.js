@@ -3,7 +3,13 @@ const queries = require('./users.queries');
 const bcrypt = require('bcryptjs');
 
 exports.getProfile = async (userId, role) => {
-  const [userRows] = await db.query(queries.GET_USER_PROFILE, [userId]);
+  let [userRows] = await db.query(queries.GET_USER_PROFILE, [userId]);
+
+  // Legacy support for demo ID 999
+  if (userRows.length === 0 && (userId === '999' || userId === 999)) {
+    [userRows] = await db.query(queries.GET_USER_PROFILE, [1]);
+  }
+
   if (userRows.length === 0) throw new Error('User not found');
 
   const profile = { ...userRows[0] };
@@ -42,5 +48,12 @@ exports.updateProfile = async (userId, role, data) => {
 exports.updatePassword = async (userId, newPassword) => {
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   await db.query(queries.UPDATE_PASSWORD, [hashedPassword, userId]);
+  return true;
+};
+
+exports.updateProfileImage = async (userId, imageUrl) => {
+  // Map 999 to 1 if needed
+  const targetId = (userId === '999' || userId === 999) ? 1 : userId;
+  await db.query(queries.UPDATE_PROFILE_IMAGE, [imageUrl, targetId]);
   return true;
 };

@@ -29,3 +29,21 @@ exports.updatePassword = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+exports.updateProfileImage = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    if (!req.file) throw new Error('No file uploaded');
+
+    const imageUrl = `/uploads/profiles/${req.file.filename}`;
+    await service.updateProfileImage(userId, imageUrl);
+
+    res.json({
+      success: true,
+      message: 'Profile image updated successfully',
+      imageUrl
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

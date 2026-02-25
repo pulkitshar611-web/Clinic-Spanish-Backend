@@ -1,9 +1,12 @@
 module.exports = {
   GET_USER_PROFILE: `
-    SELECT id, username, role, full_name, email FROM users WHERE id = ? AND is_deleted = 0
+    SELECT id, username, role, full_name, email, profile_image FROM users WHERE id = ? AND is_deleted = 0
   `,
   UPDATE_USER_PROFILE: `
     UPDATE users SET full_name = ?, email = ? WHERE id = ?
+  `,
+  UPDATE_PROFILE_IMAGE: `
+    UPDATE users SET profile_image = ? WHERE id = ?
   `,
   UPDATE_PASSWORD: `
     UPDATE users SET password_hash = ? WHERE id = ?

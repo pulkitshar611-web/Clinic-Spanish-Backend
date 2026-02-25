@@ -11,14 +11,14 @@ exports.login = async (rawIdentifier, password) => {
   if ((loginIdentifier === 'clinivaAdmin' && password === 'password123') || (loginIdentifier === 'admin' && password === 'admin')) {
     const adminUsername = loginIdentifier === 'admin' ? 'admin' : 'clinivaAdmin';
     const token = jwt.sign(
-      { id: 999, username: adminUsername, role: 'admin' },
+      { id: 1, username: adminUsername, role: 'admin' },
       JWT_SECRET,
       { expiresIn: '24h' }
     );
     return {
       token,
       user: {
-        id: 999,
+        id: 1,
         username: adminUsername,
         role: 'admin',
         full_name: 'Administrador'
